@@ -1,0 +1,110 @@
+THINGS TO LOOK AT
+=====================
+1. zip and unzip function
+2. from itertools import zip_longest
+----------------------------------------
+
+1. WHAT IS ZIP?
+-------------------------
+zip is a python function that works on iterable data types such as lists,
+tuples, and dictionaries. It pairs more than one iterable data type of same
+class such as (list or tuple or dictionary) and can perform manipulation
+on it.
+
+# EXAMPLE
+--------
+	lst1 = [2, 3, 4]
+	lst2 = [4, 2, 1]
+	zipped = zip(lst1, lst2)
+	print(zipped)
+	# it returns the object.
+	
+	zip object at 0x0000006678ECC788>
+
+	# we need to cast to list to get the actual zipped lst of tuples.
+	zipped = list(zip(lst1, lst2))
+	print(zipped)
+	
+	[(2, 4), (3, 2), (4, 1)]
+
+# HOW IT WORKS?
+--------------
+It took the first element from from lst1 and first element from lst2
+and zipped them together in a tuple, if there were more lists, the same
+fashion first element from each list and zipped together as tuple.
+the return type of it is tuples of list.
+
+# WHAT IS UNZIP?
+---------------
+Similarly if we need to get back our lists from zipped list we need to 
+use unzip function and that will bring back all the lists.
+
+# EXAMPLE
+--------
+	unzipped = list(zip(*zipped))  # TO UNZIP
+	print(unzipped)
+
+	[(2, 3, 4), (4, 2, 1)]
+
+	lst1 = unzipped[0]
+	lst2 = unzipped[1]
+	print(lst1)
+	print(lst2)
+
+	(2, 3, 4)
+	(4, 2, 1)
+	
+	print(list(lst1))
+	print(list(lst2))
+
+	[2, 3, 4]
+	[4, 2, 1]
+
+# DEFECT
+---------
+The problem with zip function is that it only works with equal number of
+elements in each iterable data type.
+It means if one list has 3 items and second list has 2 items then the 
+third item from list 1 will be truncated.
+
+# EXAMPLE
+--------
+	list1 = [2, 3, 4]
+	list2 = [3, 1]
+	zipped = list(zip(list1, list2))
+	print(zipped)
+
+	[(2, 3), (3, 1)]   # 4 is truncated.
+========================================================================
+
+2. from itertools import zip_longest
+-----------------------------------
+
+The itertools is a collection of tools that allows to work with iterables
+in a fast and efficient way. Iterable is sequential data, means something
+that we can loop through.
+
+# it is an iterable function. 
+# it does not end until an longest iterable (list|tuple|dict) is exhausted.
+# if there is no value in the shortest iterable to match. it fill up 
+with None value.
+
+
+# EXAMPLE
+--------
+	data = ['TKINTER', 'TIME', 'SYS', 'OS']
+
+	# NORMAL ZIP FUNCTION.
+	mod = list(zip(range(10), data))
+	print(mod)
+	print('\n')
+
+	[(0, 'TKINTER'), (1, 'TIME'), (2, 'SYS'), (3, 'OS')]
+
+	# ITERABLE ZIP LONGEST FUNCTION.
+	mod = list(itertools.zip_longest(range(10), data))
+	print(mod)
+
+	[(0, 'TKINTER'), (1, 'TIME'), (2, 'SYS'), (3, 'OS'), (4, None),
+	 (5, None), (6, None), (7, None), (8, None), (9, None)]
+==============================================================================
